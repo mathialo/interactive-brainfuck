@@ -27,8 +27,8 @@ $ ibf
 > run test.bf
 Hello World!
 ```
-The `run` command always runs _inline_, ie it will not get an empty tape to 
-begin with, and will leave the tape mangled-up:
+The `run` command always runs programs _inline_, ie the code will not get an 
+empty tape to begin with, and it will leave the tape mangled-up:
 ```
 > tape
  0 1  2   3  4  5  6 7 8
