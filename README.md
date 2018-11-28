@@ -11,12 +11,12 @@ master procrastinator
 Everything you input is interpreted as BrainFuck code, except for the following
 reserved keywords:
 
-| Command    | Description                                        |
-|------------|----------------------------------------------------|
-| tape       | Prints the current status of the tape (data cells) |
-| pos        | Prints the current position on the tape            |
-| quit       | Quits the session                                  |
-| run <file> | Run code from a file                               |
+| Command    | Description                                                                       |
+|------------|-----------------------------------------------------------------------------------|
+| tape       | Prints the current status of the tape (data cells), with the current cell in bold |
+| pos        | Prints the current position on the tape                                           |
+| quit       | Quits the session                                                                 |
+| run <file> | Run code from a file                                                              |
 
 
 You can also run prewritten BrainFuck code, either as a standalone program, or
