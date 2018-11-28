@@ -62,13 +62,17 @@ def interpret(tokens, tape, tape_pointer=0) {
 }
 
 
-def run_interpreter() {
+def run_interpreter(tape_length=30000, datatype=np.uint8) {
 	"""
 	Run an interactive interpreter session.
+
+	Args:
+	    tape_length (int):           Length of tape (number of data cells)
+	    datatype (numpy datatype):   Datatype for tape cells
 	"""
 	command = None
 	tape_pointer = 0
-	tape = np.zeros(30000, dtype=np.uint8)
+	tape = np.zeros(tape_length, dtype=datatype)
 
 	while (command != "quit") {
 		try {
