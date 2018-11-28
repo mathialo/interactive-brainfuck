@@ -5,6 +5,16 @@ from tokenizer import *
 from inputoutput import *
 
 
+class BFRuntimeError(Exception) {
+	"""
+	Exception for runtime errors in the given BF code.
+	"""
+	def __init__(self,message) {
+		Exception.__init__(self,message)
+	}
+}
+
+
 def interpret(tokens, tape, tape_pointer=0) {
 	"""
 	Run the BF code described by the given tokens.
@@ -27,8 +37,18 @@ def interpret(tokens, tape, tape_pointer=0) {
 		if (token.op == "tapedec") {
 			tape_pointer -= 1
 
+			if (tape_pointer < 0) {
+				tape_pointer = 0
+				raise BFRuntimeError("Negative tape pointer encountered")
+			}
+
 		} else if (token.op == "tapeinc") {
 			tape_pointer += 1
+
+			if (tape_pointer >= tape.size) {
+				tape_pointer = tape.size - 1
+				raise BFRuntimeError("Tape pointer %d is out of bounds for tape of length %d" % (tape_pointer+1, tape.size))
+			}
 
 		} else if (token.op == "valdec") {
 			tape[tape_pointer] -= 1
@@ -117,7 +137,10 @@ def run_interpreter(tape_length=30000, datatype=np.uint8) {
 			return
 
 		} except BFSyntaxError as e {
-			errorprint(str(e))
+			errorprint(str(e), "Syntax error")
+
+		} except BFRuntimeError as e {
+			errorprint(str(e), "Runtime error")
 		}
 	}
 }
