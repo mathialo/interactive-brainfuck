@@ -7,6 +7,7 @@ ibf \- An interactive BrainFuck interpreter.
 [\-V]
 [\-t \fIdatatype\fR]
 [\-l \fItape_length\fR]
+[\-f \fIoutput_format\fR]
 [\fIinputfile\fR]
 .SH DESCRIPTION
 .B ibf
@@ -25,6 +26,9 @@ Specify the data type of the tape. Must be one of the following: uint8, int8, ui
 .TP
 .BR \-l ", " \-\-length
 Specify the length of the tape, ie the number of available data cells. Must be an integer. Defaults to 30000. 
+.TP
+.BR \-f ", " \-\-format
+Specify the way to format output. Must be one of the following: ascii (format as text), num (format as integer). Defaults to ascii. 
 .SH REPL MAGIC COMMANDS
 If no input file is given, ibf enters a read-evaluate-print loop (REPL). The program will wait for input, evaluate it as BrainFuck and print the results, _unless_ the given command is one of the following magic commands:
 .TP

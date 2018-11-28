@@ -25,7 +25,7 @@ def get_input():
         return 0
 
 
-def output(num, add_tag=False):
+def output(num, add_tag=False, outputformat="ascii"):
     """
     Output a sign to stdout. Input number is interpreted as character.
     
@@ -35,7 +35,11 @@ def output(num, add_tag=False):
     if add_tag:
         _print_output_tag()
 
-    print(str(chr(num)), end="")
+    if (outputformat == "ascii"):
+        print(str(chr(num)), end="")
+
+    else:
+        print(num)
 
 
 def _print_output_tag(end="\n"):

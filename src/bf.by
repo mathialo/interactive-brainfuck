@@ -32,6 +32,14 @@ def parse_datatype(str_datatype) {
 }
 
 
+def verify_output_format(outputformat) {
+	if not outputformat in ["num", "ascii"] {
+		errorprint("'%s' is not a valid output format" % outputformat)
+		sys.exit(1)
+	}
+}
+
+
 def main() {
 	# Setup argument parser
 	argparser = argparse.ArgumentParser("ibf", 
@@ -50,6 +58,11 @@ def main() {
 		help="tape length - default is 30000",
 		default=30000,
 		nargs="?")
+	argparser.add_argument("-f", "--format",
+		type=str, 
+		help="output format - default is ascii",
+		default="ascii",
+		nargs="?")
 	argparser.add_argument("inputfile",
 		type=str, 
 		help="BrainFuck file to execute",
@@ -58,8 +71,10 @@ def main() {
 	# Parse arguments
 	cmd_args = argparser.parse_args()
 
+	verify_output_format(cmd_args.format)
+
 	if (cmd_args.inputfile is None) {	
-		run_interpreter(cmd_args.length, parse_datatype(cmd_args.datatype))
+		run_interpreter(cmd_args.length, parse_datatype(cmd_args.datatype), cmd_args.format)
 
 	} else {
 		try {
@@ -70,11 +85,10 @@ def main() {
 
 			tokens = tokenize(input_str)
 			tape = np.zeros(cmd_args.length, dtype=parse_datatype(cmd_args.datatype))
-			interpret(tokens, tape)
+			interpret(tokens, tape, outputformat=cmd_args.format)
 
 		} except FileNotFoundError as e {
 			errorprint("Cannot find file '%s'" % sys.argv[1])
-			raise e
 			sys.exit(1)
 
 		} except BFSyntaxError as e {

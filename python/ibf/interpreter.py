@@ -14,7 +14,11 @@ class BFRuntimeError(Exception):
         Exception.__init__(self, message)
 
 
-def interpret(tokens, tape, tape_pointer=0, add_output_tag=False):
+def interpret(tokens,
+              tape,
+              tape_pointer=0,
+              add_output_tag=False,
+              outputformat="ascii"):
     """
     Run the BF code described by the given tokens.
     
@@ -59,7 +63,7 @@ def interpret(tokens, tape, tape_pointer=0, add_output_tag=False):
             tape[tape_pointer] = get_input()
 
         elif (token.op == "putchar"):
-            output(tape[tape_pointer], add_output_tag)
+            output(tape[tape_pointer], add_output_tag, outputformat)
             add_output_tag = False
 
         elif (token.op == "loop"):
@@ -77,7 +81,8 @@ def interpret(tokens, tape, tape_pointer=0, add_output_tag=False):
     return tape_pointer
 
 
-def run_interpreter(tape_length=30000, datatype=np.uint8):
+def run_interpreter(tape_length=30000, datatype=np.uint8,
+                    outputformat="ascii"):
     """
     Run an interactive interpreter session.
     
@@ -113,7 +118,8 @@ def run_interpreter(tape_length=30000, datatype=np.uint8):
                         input_str = infile.read()
 
                     tape_pointer = interpret(
-                        tokenize(input_str), tape, tape_pointer, False)
+                        tokenize(input_str), tape, tape_pointer, False,
+                        outputformat)
 
                 except FileNotFoundError:
                     errorprint("Cannot find file '%s'" % command.split(" ")[1])
@@ -122,7 +128,7 @@ def run_interpreter(tape_length=30000, datatype=np.uint8):
 
             else:
                 tape_pointer = interpret(
-                    tokenize(command), tape, tape_pointer, False)
+                    tokenize(command), tape, tape_pointer, False, outputformat)
 
         except KeyboardInterrupt:
             print("\nInterrupted!")

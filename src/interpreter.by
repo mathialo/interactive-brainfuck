@@ -15,7 +15,7 @@ class BFRuntimeError(Exception) {
 }
 
 
-def interpret(tokens, tape, tape_pointer=0, add_output_tag=False) {
+def interpret(tokens, tape, tape_pointer=0, add_output_tag=False, outputformat="ascii") {
 	"""
 	Run the BF code described by the given tokens.
 
@@ -60,7 +60,7 @@ def interpret(tokens, tape, tape_pointer=0, add_output_tag=False) {
 			tape[tape_pointer] = get_input()
 
 		} else if (token.op == "putchar") {
-			output(tape[tape_pointer], add_output_tag)
+			output(tape[tape_pointer], add_output_tag, outputformat)
 			add_output_tag = False
 
 		} else if (token.op == "loop") {
@@ -83,7 +83,7 @@ def interpret(tokens, tape, tape_pointer=0, add_output_tag=False) {
 }
 
 
-def run_interpreter(tape_length=30000, datatype=np.uint8) {
+def run_interpreter(tape_length=30000, datatype=np.uint8, outputformat="ascii") {
 	"""
 	Run an interactive interpreter session.
 
@@ -121,7 +121,8 @@ def run_interpreter(tape_length=30000, datatype=np.uint8) {
 						tokenize(input_str), 
 						tape, 
 						tape_pointer,
-						False
+						False,
+						outputformat
 					)
 
 				} except FileNotFoundError {
@@ -136,7 +137,8 @@ def run_interpreter(tape_length=30000, datatype=np.uint8) {
 					tokenize(command),
 					tape,
 					tape_pointer,
-					False
+					False,
+					outputformat
 				)
 			}
 
