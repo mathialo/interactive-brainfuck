@@ -1,0 +1,92 @@
+import re
+
+class Token {
+	def __init__(self, index, op) {
+		self.index = index
+		self.op = op
+	}
+
+	def __str__(self) {
+		return self.op
+	}
+}
+
+
+class LoopToken(Token) {
+	def __init__(self, index, type) {
+		super().__init__(index, "loop")
+		self.type = type
+		self.pair = None
+	}
+
+	def __str__(self) {
+		if (self.type == "start") {
+			return "loopstart"
+
+		} else {
+			return "goto " + str(self.pair.index)
+		}
+	}
+}
+
+
+class BFSyntaxError(Exception) {
+	def __init__(self,message) {
+		Exception.__init__(self,message)
+	}
+}
+
+
+def tokenize(input_str) {
+	# Remove newlines
+	input_str = input_str.replace("\n", "")
+
+	# Remove all comments
+	input_str = re.sub(r"[^<>+\-\[\],.]", "", input_str)
+
+	tokens = [None] * len(input_str)
+	active_loops = []
+
+	for i, sign in enumerate(input_str) {
+		if (sign == "<") {
+			tokens[i] = Token(i, "tapedec")
+
+		} else if (sign == ">") {
+			tokens[i] = Token(i, "tapeinc")
+
+		} else if (sign == "-") {
+			tokens[i] = Token(i, "valdec")
+
+		} else if (sign == "+") {
+			tokens[i] = Token(i, "valinc")
+
+		} else if (sign == ",") {
+			tokens[i] = Token(i, "getchar")
+
+		} else if (sign == ".") {
+			tokens[i] = Token(i, "putchar")
+
+		} else if (sign == "[") {
+			tokens[i] = LoopToken(i, "start")
+			active_loops.append(tokens[i])
+
+		} else if (sign == "]") {
+			tokens[i] = LoopToken(i, "end")
+
+			try {
+				paired_token = active_loops.pop()
+				paired_token.pair = tokens[i]
+				tokens[i].pair = paired_token
+
+			} except IndexError {
+				raise BFSyntaxError("Loop close at %d without any matching loop start" % i)
+			}
+		}
+	}
+
+	if (len(active_loops) > 0) {
+		raise BFSyntaxError("Unclosed loop at %d" % active_loops.pop().index)
+	}
+
+	return tokens
+}

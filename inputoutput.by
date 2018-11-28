@@ -1,0 +1,71 @@
+import sys
+
+import numpy as np
+
+
+def errorprint(string) {
+	print("Error: %s" % string, file=sys.stderr)
+}
+
+
+def get_input() {
+	try {
+		return int(input())
+
+	} except ValueError {
+		errorprint("Cannot convert input to int")
+		return 0
+	}
+}
+
+
+def output(num) {
+	print(str(chr(num)), end="")
+}
+
+
+def num_of_symbols(num) {
+	if (num == 0) {
+		return 1
+	} else if (num > 0) {
+		return int(np.ceil(np.log10(num+0.1)))
+	} else {
+		return int(np.ceil(np.log10(-num+0.1))) + 1
+	}
+}
+
+
+def showtape(tape, position) {
+	nonzero = np.flatnonzero(tape)
+
+	if (nonzero.size == 0) {
+		last = position + 3
+
+	} else {
+		last = min(tape.size, max(nonzero[-1], position) + 3)
+	}
+
+	widths = [None] * last	
+
+	for i in range(last) {
+		widths[i] = max(num_of_symbols(i), num_of_symbols(tape[i])) + 1
+		if (i == position) {
+			print("\033[1m", end="")
+		}
+		print(("%%%dd" % widths[i]) % i, end="")
+		if (i == position) {
+			print("\033[0m", end="")
+		}
+	}
+	print()
+	for i in range(last) {
+		if (i == position) {
+			print("\033[1m", end="")
+		}
+		print(("%%%dd" % widths[i]) % tape[i], end="")
+		if (i == position) {
+			print("\033[0m", end="")
+		}
+	}
+	print()
+}
