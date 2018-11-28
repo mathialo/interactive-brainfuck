@@ -14,7 +14,7 @@ $ sudo -H pip3 install .
 After installation, you run an interactive session with the `ibf` command:
 ```
 $ ibf
-> +[------->++<]>-.------------.--[--->+<]>--.+.+++[->+++<]>.+++++++++++++.[-->+++++<]>+++.[-->+++++++<]>.++.---.------------.-[--->+<]>----.+++[->+++<]>++.--[--->+<]>--.+.-----------.+++++.-------------.--[--->+<]>-.-----.+++.>++++++++++.
+[Input] +[------->++<]>-.------------.--[--->+<]>--.+.+++[->+++<]>.+++++++++++++.[-->+++++<]>+++.[-->+++++++<]>.++.---.------------.-[--->+<]>----.+++[->+++<]>++.--[--->+<]>--.+.-----------.+++++.-------------.--[--->+<]>-.-----.+++.>++++++++++.
 master procrastinator
 ```
 
@@ -35,7 +35,7 @@ in an interactive session:
 $ ibf test.bf
 Hello World!
 $ ibf
-> run test.bf
+[Input] run test.bf
 Hello World!
 ```
 
@@ -44,7 +44,7 @@ current tape and with the current tape position as starting position. Thus,
 after running a program you can inspect the final state of the tape:
 
 ```
-> tape
+[Input] tape
  0 1  2   3  4  5  6 7 8
  0 0 72 100 87 33 10 0 0
 ```

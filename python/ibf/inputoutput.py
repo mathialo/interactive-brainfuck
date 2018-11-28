@@ -6,7 +6,7 @@ def errorprint(string, prefix="Error"):
     """
     Print a message to stderr, prefixed with 'Error:'
     """
-    print("%s: %s" % (prefix, string), file=sys.stderr)
+    print("\033[91m\033[1m%s:\033[0m %s" % (prefix, string), file=sys.stderr)
 
 
 def get_input():
@@ -25,14 +25,21 @@ def get_input():
         return 0
 
 
-def output(num):
+def output(num, add_tag=False):
     """
     Output a sign to stdout. Input number is interpreted as character.
     
     Args:
     num (int):   Ascii value of sign to output
     """
+    if add_tag:
+        _print_output_tag()
+
     print(str(chr(num)), end="")
+
+
+def _print_output_tag(end="\n"):
+    print("\033[95m[Output]\033[0m", end=end)
 
 
 def _num_of_symbols(num):

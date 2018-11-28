@@ -14,7 +14,7 @@ class BFRuntimeError(Exception):
         Exception.__init__(self, message)
 
 
-def interpret(tokens, tape, tape_pointer=0):
+def interpret(tokens, tape, tape_pointer=0, add_output_tag=False):
     """
     Run the BF code described by the given tokens.
     
@@ -59,7 +59,8 @@ def interpret(tokens, tape, tape_pointer=0):
             tape[tape_pointer] = get_input()
 
         elif (token.op == "putchar"):
-            output(tape[tape_pointer])
+            output(tape[tape_pointer], add_output_tag)
+            add_output_tag = False
 
         elif (token.op == "loop"):
             if (token.type == "start"):
@@ -84,13 +85,20 @@ def run_interpreter(tape_length=30000, datatype=np.uint8):
     tape_length (int):           Length of tape (number of data cells)
     datatype (numpy datatype):   Datatype for tape cells
     """
+    # Print greeting
+    print("Interactive BrainFuck - ibf v0.1\n")
+    print("ibf is licensed under the permissive MIT license. Full license and")
+    print(
+        "copyright information is available at the project's GitHub repository.\n"
+    )
+
     command = None
     tape_pointer = 0
     tape = np.zeros(tape_length, dtype=datatype)
 
     while (command != "quit"):
         try:
-            command = input("> ")
+            command = input("\033[94m[Input] \033[0m")
 
             if (command == "tape"):
                 showtape(tape, tape_pointer)
@@ -105,7 +113,7 @@ def run_interpreter(tape_length=30000, datatype=np.uint8):
                         input_str = infile.read()
 
                     tape_pointer = interpret(
-                        tokenize(input_str), tape, tape_pointer)
+                        tokenize(input_str), tape, tape_pointer, False)
 
                 except FileNotFoundError:
                     errorprint("Cannot find file '%s'" % command.split(" ")[1])
@@ -113,7 +121,8 @@ def run_interpreter(tape_length=30000, datatype=np.uint8):
                     errorprint("Provide a file name!")
 
             else:
-                tape_pointer = interpret(tokenize(command), tape, tape_pointer)
+                tape_pointer = interpret(
+                    tokenize(command), tape, tape_pointer, False)
 
         except KeyboardInterrupt:
             print("\nInterrupted!")
