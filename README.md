@@ -14,6 +14,7 @@ reserved keywords:
 | Command    | Description                                        |
 |------------|----------------------------------------------------|
 | tape       | Prints the current status of the tape (data cells) |
+| pos        | Prints the current position on the tape            |
 | quit       | Quits the session                                  |
 | run <file> | Run code from a file                               |
 

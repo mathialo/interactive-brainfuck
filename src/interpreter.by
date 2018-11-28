@@ -101,6 +101,9 @@ def run_interpreter(tape_length=30000, datatype=np.uint8) {
 			if (command == "tape") {
 				showtape(tape, tape_pointer)
 
+			} else if (command == "pos") {
+				print("Pointer at %d" % tape_pointer)
+
 			} else if (command.split(" ")[0] == "run") {
 				try {
 					# Read into string
