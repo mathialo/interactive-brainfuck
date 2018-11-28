@@ -1,6 +1,16 @@
 # Interactive BrainFuck
 An interactive BrainFuck interpreter written in Bython. Why not?
 
+To install from source, you must first build the Bython source into a Python package:
+``` bash
+$ make build
+```
+Then, you move to the `python` folder, and run the setup script:
+``` bash
+$ cd python
+$ sudo -H pip3 install .
+```
+
 After installation, you run an interactive session with the `ibf` command:
 ```
 $ ibf
@@ -28,8 +38,11 @@ $ ibf
 > run test.bf
 Hello World!
 ```
-The `run` command always runs programs _inline_, ie the code will not get an 
-empty tape to begin with, and it will leave the tape mangled-up:
+
+The `run` command always runs programs _inline_, ie the code is run on the
+current tape and with the current tape position as starting position. Thus,
+after running a program you can inspect the final state of the tape:
+
 ```
 > tape
  0 1  2   3  4  5  6 7 8
