@@ -6,6 +6,17 @@ from inputoutput import *
 
 
 def interpret(tokens, tape, tape_pointer=0) {
+	"""
+	Run the BF code described by the given tokens.
+
+	Args:
+	    tokens (list):      List of tokens to execute
+	    tape (np.ndarray)   Tape to act on (data cells)
+	    tape_pointer (int): Optional. Initial state of data pointer.
+
+	Returns:
+	    int: Final state of tape (data) pointer.
+	"""
 	token_index = 0
 
 	tokens.append(None)
@@ -52,6 +63,9 @@ def interpret(tokens, tape, tape_pointer=0) {
 
 
 def run_interpreter() {
+	"""
+	Run an interactive interpreter session.
+	"""
 	command = None
 	tape_pointer = 0
 	tape = np.zeros(30000, dtype=np.int32)
@@ -93,9 +107,11 @@ def run_interpreter() {
 
 		} except KeyboardInterrupt {
 			print("\nInterrupted!")
+
 		} except EOFError {
 			print("\nEOF detected")
 			return
+
 		} except BFSyntaxError as e {
 			errorprint(str(e))
 		}

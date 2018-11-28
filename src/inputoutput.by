@@ -1,14 +1,23 @@
 import sys
-
 import numpy as np
 
 
 def errorprint(string) {
+	"""
+	Print a message to stderr, prefixed with 'Error:'
+	"""
 	print("Error: %s" % string, file=sys.stderr)
 }
 
 
 def get_input() {
+	"""
+	Get input from user, interpret as integer.
+
+	Returns:
+	    int: Input from user. Defaults to 0 if the input could not be read 
+	    properly
+	"""
 	try {
 		return int(input())
 
@@ -20,11 +29,26 @@ def get_input() {
 
 
 def output(num) {
+	"""
+	Output a sign to stdout. Input number is interpreted as character.
+
+	Args:
+	    num (int):   Ascii value of sign to output
+	"""
 	print(str(chr(num)), end="")
 }
 
 
-def num_of_symbols(num) {
+def _num_of_symbols(num) {
+	"""
+	Calculate the number of symbols necessary to print the given number
+
+	Args:
+	    num (int):   Input number
+
+	Returns:
+	    int: Number of signs necessary to write 'num'
+	"""
 	if (num == 0) {
 		return 1
 	} else if (num > 0) {
@@ -36,6 +60,14 @@ def num_of_symbols(num) {
 
 
 def showtape(tape, position) {
+	"""
+	Print the current status for the tape to the terminal. Current position is
+	highlighted in bold. 
+
+	Args:
+	    tape (np.ndarray):  Current tape
+	    position (int):     Position of tape pointer
+	"""
 	nonzero = np.flatnonzero(tape)
 
 	if (nonzero.size == 0) {
@@ -48,7 +80,7 @@ def showtape(tape, position) {
 	widths = [None] * last	
 
 	for i in range(last) {
-		widths[i] = max(num_of_symbols(i), num_of_symbols(tape[i])) + 1
+		widths[i] = max(_num_of_symbols(i), _num_of_symbols(tape[i])) + 1
 		if (i == position) {
 			print("\033[1m", end="")
 		}

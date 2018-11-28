@@ -1,6 +1,13 @@
 import re
 
 class Token {
+	"""
+	Class representing a token. 
+
+	Args:
+	    index (int):    Index of token (number of instructions before this)
+	    op (str):       Operation to perform.
+	"""
 	def __init__(self, index, op) {
 		self.index = index
 		self.op = op
@@ -13,6 +20,16 @@ class Token {
 
 
 class LoopToken(Token) {
+	"""
+	Special class for loop tokens. Automatically sets the 'op' field in the 
+	Token class to 'loop'.
+
+	Holds an additional field for the paired loop delimiter. 
+
+	Args:
+	    index (int):    Index of token (number of instructions before this)
+	    type (str):     Either 'start' or 'end'.
+	"""
 	def __init__(self, index, type) {
 		super().__init__(index, "loop")
 		self.type = type
@@ -31,6 +48,9 @@ class LoopToken(Token) {
 
 
 class BFSyntaxError(Exception) {
+	"""
+	Exception for syntax errors in the given BF code.
+	"""
 	def __init__(self,message) {
 		Exception.__init__(self,message)
 	}
@@ -38,6 +58,19 @@ class BFSyntaxError(Exception) {
 
 
 def tokenize(input_str) {
+	"""
+	Tokenizes a given input string of BF code.
+
+	Args:
+	    input_str (str):    Input code
+
+	Returns:
+	    list: A list of tokens (as instances of the token class).
+
+	Raises:
+	    BFSyntaxError:      If the input code contains syntax errors, ie if
+	                        loops are not matched properly.
+	"""
 	# Remove newlines
 	input_str = input_str.replace("\n", "")
 

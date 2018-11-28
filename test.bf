@@ -1,4 +1,7 @@
 #! /usr/local/bin/ibf
+
+This is the 'Hello World!' program from Wikipedia, with comments for "readablilty"
+
 ++++++++                Set Cell #0 to 8
 [
     >++++               Add 4 to Cell #1; this will always set Cell #1 to 4
