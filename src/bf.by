@@ -76,8 +76,12 @@ def main() {
 			errorprint("Cannot find file '%s'" % sys.argv[1])
 			raise e
 			sys.exit(1)
+
 		} except BFSyntaxError as e {
-			errorprint(str(e))
+			errorprint(str(e), "Syntax error")
+
+		} except BFRuntimeError as e {
+			errorprint(str(e), "Runtime error")
 		}
 	}
 }
