@@ -7,3 +7,6 @@ build:
 	echo "from . import tokenizer, inputoutput, interpreter" > python/ibf/__init__.py
 
 all: build
+
+install: build
+	cd python/ && sudo -H pip3 install .

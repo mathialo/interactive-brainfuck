@@ -67,7 +67,7 @@ def main():
     else:
         try:
             # Read into string
-            with open(cmd_args.inputfile[0], "r") as infile:
+            with open(cmd_args.inputfile, "r") as infile:
                 input_str = infile.read()
 
             tokens = tokenize(input_str)
@@ -75,8 +75,9 @@ def main():
                 cmd_args.length, dtype=parse_datatype(cmd_args.datatype))
             interpret(tokens, tape)
 
-        except FileNotFoundError:
-            errorprint("Cannot find file '%s'" % sys.argv[1], file=sys.stderr)
+        except FileNotFoundError as e:
+            errorprint("Cannot find file '%s'" % sys.argv[1])
+            raise e
             sys.exit(1)
         except BFSyntaxError as e:
             errorprint(str(e))

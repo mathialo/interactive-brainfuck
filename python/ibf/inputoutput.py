@@ -68,7 +68,10 @@ def showtape(tape, position):
         last = position + 3
 
     else:
-        last = min(tape.size, max(nonzero[-1], position) + 3)
+        last = max(nonzero[-1], position) + 3
+
+    # Cap last at end of tape
+    last = min(last, tape.size)
 
     widths = [None] * last
 
