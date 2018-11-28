@@ -68,7 +68,7 @@ def run_interpreter() {
 	"""
 	command = None
 	tape_pointer = 0
-	tape = np.zeros(30000, dtype=np.int32)
+	tape = np.zeros(30000, dtype=np.uint8)
 
 	while (command != "quit") {
 		try {

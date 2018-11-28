@@ -20,7 +20,7 @@ def main():
                 input_str = infile.read()
 
             tokens = tokenize(input_str)
-            tape = np.zeros(30000, dtype=np.int32)
+            tape = np.zeros(30000, dtype=np.uint8)
             interpret(tokens, tape)
 
         except FileNotFoundError:
