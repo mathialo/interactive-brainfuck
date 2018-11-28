@@ -1,0 +1,86 @@
+#! /usr/local/bin/python3
+import sys
+import argparse
+import numpy as np
+import readline
+
+from ibf.tokenizer import *
+from ibf.inputoutput import *
+from ibf.interpreter import *
+
+
+def parse_datatype(str_datatype):
+    legal_datatypes = dict([
+        ("uint8", np.uint8),
+        ("int8", np.int8),
+        ("uint16", np.uint16),
+        ("int16", np.int16),
+        ("uint32", np.uint32),
+        ("int32", np.int32),
+        ("uint64", np.uint64),
+        ("int64", np.int64),
+        ("bool", np.bool),
+    ])
+
+    try:
+        return legal_datatypes[str_datatype]
+
+    except KeyError:
+        errorprint("'%s' is not a valid datatype" % str_datatype)
+        sys.exit(1)
+
+
+def main():
+    # Setup argument parser
+    argparser = argparse.ArgumentParser(
+        "ibf",
+        description="An interactive BrainFuck interpreter.",
+        formatter_class=argparse.RawTextHelpFormatter)
+    argparser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version="Interactive BrainFuck - ibf v0.1\nMathias Lohne 2018")
+    argparser.add_argument(
+        "-t",
+        "--datatype",
+        type=str,
+        help="data type for the cells in the tape - default is uint8",
+        default="uint8",
+        nargs="?")
+    argparser.add_argument(
+        "-l",
+        "--length",
+        type=int,
+        help="tape length - default is 30000",
+        default=30000,
+        nargs="?")
+    argparser.add_argument(
+        "inputfile", type=str, help="BrainFuck file to execute", nargs="?")
+
+    # Parse arguments
+    cmd_args = argparser.parse_args()
+
+    if (cmd_args.inputfile is None):
+        run_interpreter(cmd_args.length, parse_datatype(cmd_args.datatype))
+
+    else:
+        try:
+            # Read into string
+            with open(cmd_args.inputfile[0], "r") as infile:
+                input_str = infile.read()
+
+            tokens = tokenize(input_str)
+            tape = np.zeros(
+                cmd_args.length, dtype=parse_datatype(cmd_args.datatype))
+            interpret(tokens, tape)
+
+        except FileNotFoundError:
+            errorprint("Cannot find file '%s'" % sys.argv[1], file=sys.stderr)
+            sys.exit(1)
+        except BFSyntaxError as e:
+            errorprint(str(e))
+
+
+if (__name__ == '__main__'):
+    main()

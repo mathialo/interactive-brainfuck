@@ -1,8 +1,17 @@
 import sys
 import numpy as np
 
-from tokenizer import *
-from inputoutput import *
+from ibf.tokenizer import *
+from ibf.inputoutput import *
+
+
+class BFRuntimeError(Exception):
+    """
+    Exception for runtime errors in the given BF code.
+    """
+
+    def __init__(self, message):
+        Exception.__init__(self, message)
 
 
 def interpret(tokens, tape, tape_pointer=0):
@@ -27,8 +36,18 @@ def interpret(tokens, tape, tape_pointer=0):
         if (token.op == "tapedec"):
             tape_pointer -= 1
 
+            if (tape_pointer < 0):
+                tape_pointer = 0
+                raise BFRuntimeError("Negative tape pointer encountered")
+
         elif (token.op == "tapeinc"):
             tape_pointer += 1
+
+            if (tape_pointer >= tape.size):
+                tape_pointer = tape.size - 1
+                raise BFRuntimeError(
+                    "Tape pointer %d is out of bounds for tape of length %d" %
+                    (tape_pointer + 1, tape.size))
 
         elif (token.op == "valdec"):
             tape[tape_pointer] -= 1
@@ -57,13 +76,17 @@ def interpret(tokens, tape, tape_pointer=0):
     return tape_pointer
 
 
-def run_interpreter():
+def run_interpreter(tape_length=30000, datatype=np.uint8):
     """
     Run an interactive interpreter session.
+    
+    Args:
+    tape_length (int):           Length of tape (number of data cells)
+    datatype (numpy datatype):   Datatype for tape cells
     """
     command = None
     tape_pointer = 0
-    tape = np.zeros(30000, dtype=np.uint8)
+    tape = np.zeros(tape_length, dtype=datatype)
 
     while (command != "quit"):
         try:
@@ -71,6 +94,9 @@ def run_interpreter():
 
             if (command == "tape"):
                 showtape(tape, tape_pointer)
+
+            elif (command == "pos"):
+                print("Pointer at %d" % tape_pointer)
 
             elif (command.split(" ")[0] == "run"):
                 try:
@@ -97,4 +123,7 @@ def run_interpreter():
             return
 
         except BFSyntaxError as e:
-            errorprint(str(e))
+            errorprint(str(e), "Syntax error")
+
+        except BFRuntimeError as e:
+            errorprint(str(e), "Runtime error")

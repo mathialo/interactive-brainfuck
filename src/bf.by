@@ -1,12 +1,12 @@
-#! /usr/local/bin/bython
+#! /usr/local/bin/python3
 import sys
 import argparse
 import numpy as np
 import readline
 
-from tokenizer import *
-from inputoutput import *
-from interpreter import *
+from ibf.tokenizer import *
+from ibf.inputoutput import *
+from ibf.interpreter import *
 
 
 def parse_datatype(str_datatype) {

@@ -1,8 +1,8 @@
 import sys
 import numpy as np
 
-from tokenizer import *
-from inputoutput import *
+from ibf.tokenizer import *
+from ibf.inputoutput import *
 
 
 class BFRuntimeError(Exception) {

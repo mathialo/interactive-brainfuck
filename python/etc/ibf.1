@@ -1,0 +1,53 @@
+.TH ibf 1
+.SH NAME
+ibf \- An interactive BrainFuck interpreter.
+.SH SYNOPSIS
+.B ibf
+[\-h]
+[\-V]
+[\-t \fIdatatype\fR]
+[\-l \fItape_length\fR]
+[\fIinputfile\fR]
+.SH DESCRIPTION
+.B ibf
+is both a BrainFuck interpreter and an interactive shell. 
+If ibf is given an input file to execute, it will run the file and quit, otherwise it will enter a REPL. 
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Show help message and exit.
+.TP
+.BR \-V ", " \-\-version
+Show version number and exit.
+.TP
+.BR \-t ", " \-\-datatype
+Specify the data type of the tape. Must be one of the following: uint8, int8, uint16, int16, uint32, int32, uint64, int64, bool. Defaults to uint8.
+.TP
+.BR \-l ", " \-\-length
+Specify the length of the tape, ie the number of available data cells. Must be an integer. Defaults to 30000. 
+.SH REPL MAGIC COMMANDS
+If no input file is given, ibf enters a read-evaluate-print loop (REPL). The program will wait for input, evaluate it as BrainFuck and print the results, _unless_ the given command is one of the following magic commands:
+.TP
+.BR tape
+Prints the current state of the tape (the data cells), and highlights the current cell in bold.
+.TP
+.BR pos
+Prints the position of the current cell.
+.TP
+.BR run " " \fIfile\fR
+Runs the given input file.
+.B Note:
+when programs are run with the 'run' command, they run on the current tape, with the current position as the starting point. Ie, they can not assume that the tape is empty. 
+.TP
+.BR quit
+Exits the REPL
+.SH AUTHOR
+Mathias Lohne 2018
+.SH LICENSE
+This program is licensed under the MIT license. See [1] for details. TL;DR: Do whatever you want as long as you include the original copyright and license notice.
+.TP
+[1]
+https://github.com/mathialo/interactive-brainfuck/blob/master/LICENSE
+
+
+
