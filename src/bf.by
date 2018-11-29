@@ -44,7 +44,8 @@ def main() {
 	# Setup argument parser
 	argparser = argparse.ArgumentParser("ibf", 
 		description="An interactive BrainFuck interpreter.", 
-		formatter_class=argparse.RawTextHelpFormatter)
+		formatter_class=argparse.RawTextHelpFormatter,
+		epilog="For a more detailed explanation of possible arguments and REPL commands,\nconsult the man page:\n\n    $ man ibf\n ")
 	argparser.add_argument("-V", "--version", 
 		action="version", 
 		version="Interactive BrainFuck - ibf v0.1\nMathias Lohne 2018")
@@ -65,7 +66,7 @@ def main() {
 		nargs="?")
 	argparser.add_argument("inputfile",
 		type=str, 
-		help="BrainFuck file to execute",
+		help="BrainFuck file to execute (optional, enters REPL if omitted)",
 		nargs="?")
 
 	# Parse arguments
