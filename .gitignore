@@ -2,6 +2,9 @@
 *.sublime-project
 *.sublime-workspace
 
+# Compiled python package. Build it yourself with 'make build'
+python
+
 # Byte-compiled / optimized / DLL files
 *__pycache__
 __pycache__/
