@@ -75,7 +75,7 @@ def main() {
 	verify_output_format(cmd_args.format)
 
 	if (cmd_args.inputfile is None) {	
-		run_interpreter(cmd_args.length, parse_datatype(cmd_args.datatype), cmd_args.format)
+		run_repl(cmd_args.length, parse_datatype(cmd_args.datatype), cmd_args.format)
 
 	} else {
 		try {

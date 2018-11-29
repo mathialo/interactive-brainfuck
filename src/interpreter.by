@@ -85,7 +85,7 @@ def interpret(tokens, tape, tape_pointer=0, add_output_tag=False, outputformat="
 }
 
 
-def run_interpreter(tape_length=30000, datatype=np.uint8, outputformat="ascii") {
+def run_repl(tape_length=30000, datatype=np.uint8, outputformat="ascii") {
 	"""
 	Run an interactive interpreter session.
 

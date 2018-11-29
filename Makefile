@@ -5,6 +5,7 @@ build:
 	mv python/ibf/bf.py python/etc/ibf
 	chmod +x python/etc/ibf
 	echo "from . import tokenizer, inputoutput, interpreter" > python/ibf/__init__.py
+	cp README.md python/
 
 all: build
 
