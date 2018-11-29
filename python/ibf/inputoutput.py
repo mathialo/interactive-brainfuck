@@ -4,7 +4,12 @@ import numpy as np
 
 def errorprint(string, prefix="Error"):
     """
-    Print a message to stderr, prefixed with 'Error:'
+    Print a message to stderr, prefixed with a bold, red 'Error:' (or other 
+    given prefix).
+    
+    Args:
+    string (str):     Error message
+    prefix (str):     Custom prefix
     """
     print("\033[91m\033[1m%s:\033[0m %s" % (prefix, string), file=sys.stderr)
 
@@ -30,7 +35,9 @@ def output(num, add_tag=False, outputformat="ascii"):
     Output a sign to stdout. Input number is interpreted as character.
     
     Args:
-    num (int):   Ascii value of sign to output
+    num (int):           Ascii value of sign to output
+    add_tag (bool):      Whether to add a 'prompt' to the output as well.
+    outputformat (str):  Format of output
     """
     if add_tag:
         _print_output_tag()
@@ -43,6 +50,12 @@ def output(num, add_tag=False, outputformat="ascii"):
 
 
 def _print_output_tag(end="\n"):
+    """
+    Print an output prompt, ie a colorized [Output].
+    
+    Args:
+    end (str):     End of line (passed to print's end kwarg)
+    """
     print("\033[95m[Output]\033[0m", end=end)
 
 

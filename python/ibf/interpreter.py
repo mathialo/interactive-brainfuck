@@ -23,9 +23,11 @@ def interpret(tokens,
     Run the BF code described by the given tokens.
     
     Args:
-    tokens (list):      List of tokens to execute
-    tape (np.ndarray)   Tape to act on (data cells)
-    tape_pointer (int): Optional. Initial state of data pointer.
+    tokens (list):          List of tokens to execute
+    tape (np.ndarray)       Tape to act on (data cells)
+    tape_pointer (int):     Optional. Initial state of data pointer
+    add_tag (bool):         Whether to add a 'prompt' to the output
+    outputformat (str):     Format of output
     
     Returns:
     int: Final state of tape (data) pointer.
@@ -89,6 +91,7 @@ def run_interpreter(tape_length=30000, datatype=np.uint8,
     Args:
     tape_length (int):           Length of tape (number of data cells)
     datatype (numpy datatype):   Datatype for tape cells
+    outputformat (str):          Format of output
     """
     # Print greeting
     print("Interactive BrainFuck - ibf v0.1\n")
