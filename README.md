@@ -13,7 +13,12 @@ $ sudo -H pip3 install .
 
 After installation, you run an interactive session with the `ibf` command:
 ```
-$ ibf
+$ ibf 
+Interactive BrainFuck - ibf v0.1
+
+ibf is licensed under the permissive MIT license. Full license and
+copyright information is available at the project's GitHub repository.
+
 [Input] +[------->++<]>-.------------.--[--->+<]>--.+.+++[->+++<]>.+++++++++++++.[-->+++++<]>+++.[-->+++++++<]>.++.---.------------.-[--->+<]>----.+++[->+++<]>++.--[--->+<]>--.+.-----------.+++++.-------------.--[--->+<]>-.-----.+++.>++++++++++.
 master procrastinator
 ```
@@ -34,7 +39,12 @@ in an interactive session:
 ```
 $ ibf test.bf
 Hello World!
-$ ibf
+$ ibf 
+Interactive BrainFuck - ibf v0.1
+
+ibf is licensed under the permissive MIT license. Full license and
+copyright information is available at the project's GitHub repository.
+
 [Input] run test.bf
 Hello World!
 ```
@@ -48,3 +58,6 @@ after running a program you can inspect the final state of the tape:
  0 1  2   3  4  5  6 7 8
  0 0 72 100 87 33 10 0 0
 ```
+
+
+For more help, type `ibf -h` or view the manual page by running `man ibf`.
