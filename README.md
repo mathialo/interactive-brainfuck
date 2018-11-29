@@ -1,15 +1,31 @@
 # Interactive BrainFuck
 An interactive BrainFuck interpreter written in Bython. Why not?
 
-To install from source, you must first build the Bython source into a Python package:
+### Installation
+You can install `ibf` from PyPI with `pip`:
+
+``` bash
+$ sudo -H pip3 install ibf
+```
+
+Or, if you want the latest version, you can build `ibf` from source yourself. To
+install from source, you must first build the Bython source into a Python package:
+
 ``` bash
 $ make build
 ```
+
 Then, you move to the `python` folder, and run the setup script:
+
 ``` bash
 $ cd python
 $ sudo -H pip3 install .
 ```
+
+Alternatively, `make install` should do all of the above steps automatically. 
+
+
+### Quick intro
 
 After installation, you run an interactive session with the `ibf` command:
 ```
